@@ -1,0 +1,197 @@
+name,maternal,infant,life_exp,region
+Nigeria,993,53.7,62.2,Africa
+Chad,748,62.5,60,Africa
+South Sudan,692,60.1,60.3,Africa
+Central African Republic,692,80.5,56.4,Africa
+Liberia,628,55.7,61.6,Africa
+Somalia,563,83.6,56.5,Africa
+Afghanistan,521,101.3,54.4,South Asia
+Benin,518,52.9,63,Africa
+Guinea-Bissau,505,46.4,64.5,Africa
+Guinea,494,47,64.6,Africa
+Lesotho,478,45.7,60.2,Africa
+Madagascar,445,37.5,68.8,Africa
+"Congo, Democratic Republic of the",427,57.4,62.6,Africa
+Burundi,392,35.7,68.1,Africa
+Mauritania,381,48.9,65.9,Africa
+Kenya,379,26.1,70.4,Africa
+Mali,367,57.4,63.2,Africa
+Cote d'Ivoire,359,52.5,63.2,Africa
+Zimbabwe,358,33.4,67.2,Africa
+"Gambia, The",354,35.7,68.4,Africa
+Sierra Leone,354,71.2,59.4,Africa
+Niger,350,64.3,60.9,Africa
+Togo,349,38.4,72.1,Africa
+Haiti,328,36.8,65.6,Central America and the Caribbean
+Eritrea,291,39.8,67.5,Africa
+Tanzania,276,29.6,70.8,Africa
+Nauru,273,7.6,68.6,Australia and Oceania
+Cameroon,258,46.1,64.2,Africa
+Sudan,256,40.6,67.8,Africa
+Burkina Faso,242,47,64.2,Africa
+"Congo, Republic of the",241,30.6,72.9,Africa
+Senegal,237,31.1,70.6,Africa
+Ghana,234,31.2,70.1,Africa
+Gabon,233,26.9,70.4,Africa
+Rwanda,229,24.9,66.6,Africa
+Venezuela,227,13.9,74.5,South America
+Malawi,225,31.9,73,Africa
+Ethiopia,195,32.6,67.7,Africa
+Timor-Leste,192,32.2,70.5,East and Southeast Asia
+Papua New Guinea,189,32,70.1,East and Southeast Asia
+Burma,185,32.1,70.3,East and Southeast Asia
+Angola,183,55.6,62.9,Africa
+Comoros,179,54.9,67.8,Africa
+Equatorial Guinea,174,77.4,63.9,Africa
+Uganda,170,28.5,69.7,Africa
+Tuvalu,170,27.8,69,Australia and Oceania
+Djibouti,162,45.2,65.9,Africa
+Pakistan,155,51.5,70.3,South Asia
+Marshall Islands,155,20.6,75.2,Australia and Oceania
+Botswana,155,23.7,66.4,Africa
+Bolivia,146,22.3,72.5,South America
+Nepal,142,24,73,South Asia
+Indonesia,140,18.9,73.6,East and Southeast Asia
+Namibia,139,27.9,65.9,Africa
+Cambodia,137,27.9,71.4,East and Southeast Asia
+Jamaica,130,10.7,76.3,Central America and the Caribbean
+"Micronesia, Federated States of",129,20.9,75,Australia and Oceania
+Dominican Republic,124,21.7,72.6,Central America and the Caribbean
+Solomon Islands,123,19.1,77.2,Australia and Oceania
+South Africa,118,21.9,71.9,Africa
+Eswatini,118,36.7,60.7,Africa
+Yemen,118,44.6,68.2,Middle East
+Bangladesh,115,28.8,75.2,South Asia
+Laos,112,35.4,69,East and Southeast Asia
+Samoa,101,17.3,75.7,Australia and Oceania
+Vanuatu,100,13.7,75.7,Australia and Oceania
+Guatemala,94,25,73.5,Central America and the Caribbean
+Palau,89,10.8,75.2,Australia and Oceania
+Zambia,85,35.6,66.9,Africa
+Philippines,84,22,70.8,East and Southeast Asia
+Suriname,84,29.6,72.7,South America
+Mozambique,82,58.2,58.3,Africa
+Kiribati,80,31.5,68.5,Australia and Oceania
+India,80,30.4,68.2,South Asia
+"Bahamas, The",76,9.4,76.7,Central America and the Caribbean
+Guyana,75,21.1,72.4,South America
+Sao Tome and Principe,75,42.6,67.7,Africa
+Saint Kitts and Nevis,74,8,77.6,Central America and the Caribbean
+Morocco,70,18.3,74.2,Africa
+Belize,67,11.3,74.3,Central America and the Caribbean
+"Korea, North",67,15.4,73.5,East and Southeast Asia
+Tonga,67,11.8,78,Australia and Oceania
+Brazil,67,12.9,76.3,South America
+Iraq,66,18.7,73.7,Middle East
+Mauritius,66,11.6,75.4,Africa
+Algeria,62,18.7,77.9,Africa
+Nicaragua,60,14.4,74.7,Central America and the Caribbean
+Colombia,59,11.7,74.9,South America
+Libya,59,10.7,77.7,Africa
+Paraguay,58,22,78.8,South America
+Saint Vincent and the Grenadines,56,12.3,77.2,Central America and the Caribbean
+Ecuador,55,11.2,74.9,South America
+Trinidad and Tobago,54,15.1,76.5,Central America and the Caribbean
+Peru,51,10.8,68.9,South America
+Grenada,48,9,76.3,Central America and the Caribbean
+Vietnam,48,14.1,76.1,East and Southeast Asia
+Bhutan,47,24.3,73.7,South Asia
+Honduras,47,15.4,73.1,Central America and the Caribbean
+Saint Lucia,44,11.5,79.4,Central America and the Caribbean
+Kyrgyzstan,42,24.5,72.9,Central Asia
+Mexico,42,12.1,74.6,North America
+Seychelles,42,10.2,76.6,Africa
+Mongolia,41,19.4,71.9,East and Southeast Asia
+Cabo Verde,40,22.4,74.3,Africa
+El Salvador,39,11.7,75.9,Central America and the Caribbean
+Panama,37,14.2,79.2,Central America and the Caribbean
+Dominica,36,10.7,78.7,Central America and the Caribbean
+Tunisia,36,11.3,77.3,Africa
+Brunei,36,10,78.9,East and Southeast Asia
+Antigua and Barbuda,35,13.6,78.3,Central America and the Caribbean
+Cuba,35,4,80.1,Central America and the Caribbean
+Barbados,35,9.6,79,Central America and the Caribbean
+Thailand,34,6.3,78.2,East and Southeast Asia
+Argentina,33,9,78.8,South America
+Maldives,32,24.4,77.4,South Asia
+Jordan,31,13.2,76.5,Middle East
+Fiji,30,9.7,74.8,Australia and Oceania
+Uzbekistan,26,18.2,76.2,Central Asia
+Malaysia,26,6.4,76.6,East and Southeast Asia
+Costa Rica,24,6.7,80.3,Central America and the Caribbean
+Georgia,20,21.7,72.8,Central Asia
+Syria,20,15.1,74.8,Middle East
+Latvia,19,4.7,76.4,Europe
+Moldova,19,13.8,70.1,Europe
+Armenia,19,11.6,76.7,Central Asia
+Sri Lanka,18,6.8,76.8,South Asia
+Azerbaijan,18,10.9,75.9,Central Asia
+Egypt,17,16.8,75,Africa
+Bahrain,17,9.7,80.4,Middle East
+United States,17,5.1,80.9,North America
+China,16,6.2,78.7,East and Southeast Asia
+West Bank,16,15.1,76.5,Middle East
+Gaza Strip,16,15.1,75.5,Middle East
+Iran,16,14.3,75.6,Middle East
+Turkey (Turkiye),15,18.4,76.7,Middle East
+Uruguay,15,8,78.9,South America
+Portugal,15,2.4,81.9,Europe
+Ukraine,15,8.7,70.5,Europe
+Lebanon,15,6.7,79.2,Middle East
+Cyprus,14,8.1,80.2,Europe
+Tajikistan,14,21.7,71.9,Central Asia
+Oman,13,13.9,77.4,Middle East
+Canada,12,4.3,84.2,North America
+Romania,12,5.5,76.9,Europe
+Luxembourg,12,3.2,83.4,Europe
+Hungary,12,4.7,76,Europe
+Andorra,11,3.3,83.8,Europe
+Serbia,11,4.5,75.3,Europe
+Puerto Rico,11,5.8,82.1,Central America and the Caribbean
+Chile,10,6.3,80.3,South America
+Kazakhstan,10,8,73.3,Central Asia
+Russia,9,6.5,72.3,Central Asia
+Lithuania,8,3.6,76.1,Europe
+Kuwait,8,7.2,79.6,Middle East
+United Kingdom,8,3.8,82.2,Europe
+Finland,8,2.1,82.2,Europe
+Malta,8,4.4,83.6,Europe
+San Marino,8,6.2,84.2,Europe
+France,7,3.1,82.6,Europe
+Albania,7,10.3,79.9,Europe
+New Zealand,7,3.3,82.9,Australia and Oceania
+Saudi Arabia,7,11.7,77.2,Middle East
+Italy,6,3.1,83,Europe
+Bosnia and Herzegovina,6,5,78.5,Europe
+Montenegro,6,3.2,78.2,Europe
+Singapore,6,1.5,86.7,East and Southeast Asia
+Austria,6,3.2,82.7,Europe
+Bulgaria,6,7.7,76.1,Europe
+Turkmenistan,5,35.9,72.4,Central Asia
+Estonia,5,3.3,78.4,Europe
+Greece,5,3.4,81.9,Europe
+Switzerland,5,3,83.9,Europe
+Monaco,5,1.7,89.8,Europe
+Ireland,4,3.3,82,Europe
+Qatar,4,6.4,80.3,Middle East
+Netherlands,4,3.6,81.9,Europe
+Belgium,4,3.1,82.3,Europe
+Denmark,4,3,82.1,Europe
+"Korea, South",4,2.8,83.4,East and Southeast Asia
+Sweden,4,2.3,82.9,Europe
+Slovakia,4,5.1,77.2,Europe
+Germany,4,3.1,81.9,Europe
+Japan,3,1.9,85.2,East and Southeast Asia
+Spain,3,2.4,83,Europe
+North Macedonia,3,7,77.3,Europe
+Iceland,3,1.6,84,Europe
+Czechia,3,2.6,78.6,Europe
+Croatia,3,8.4,77.7,Europe
+United Arab Emirates,3,5,79.9,Middle East
+Slovenia,3,1.5,82.2,Europe
+Australia,2,2.9,83.5,Australia and Oceania
+Israel,2,2.8,83.1,Middle East
+Poland,2,4.9,76.7,Europe
+Belarus,1,2.1,74.7,Europe
+Norway,1,1.8,82.9,Europe
+Cook Islands,0,15.1,77.6,Australia and Oceania
