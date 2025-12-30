@@ -1,0 +1,250 @@
+---
+title: "Viz and Share"
+output:
+  html_document:
+    df_print: paged
+---
+
+# the data cleaned and in the right format?
+
+```{r}
+rm(list = ls())
+
+###
+git='https://github.com/DACSS-Fundamentals/'
+org='vizandshare/raw/main/'
+file='ciadata.rds'
+gitLocation=paste0(git,org)
+fullLocation=paste0(gitLocation,file)
+cia=readRDS(url(fullLocation))
+
+##
+str(cia)
+```
+
+
+# You may have several variables...but
+
+## Which is your variable of interest?
+
+* Life Expectancy
+
+## Which are you considering as explanatory variables?
+
+* Infant mortality rate
+* Maternal mortality rate
+
+## Any Control Variable?
+
+* GINI index
+
+# Exploration
+
+## Univariate
+
+### key stats
+
+```{r}
+summary(cia$life_exp)
+```
+
+The above may be supplemented by:
+```{r}
+library(moments)
+skewness(cia$life_exp)
+
+```
+
+The tail is to the left (would be to the right if positive)
+
+### visual
+
+How to highlight the stats above?
+
+```{r}
+# call the library
+library(ggplot2) # do not expect an important message
+```
+
+```{r}
+# tell ggplot the data you will use 
+base=ggplot(data=cia) # I call it 'base'
+```
+
+```{r}
+# decide the plot for the variable in the data
+# and see it
+base + geom_boxplot(aes(x=life_exp))
+
+```
+```{r}
+base + geom_histogram(aes(x=life_exp),bins = 10)
+```
+
+Let's chose the boxplot and add some decorations:
+```{r}
+worstCase=cia[which.min(cia$life_exp),'name']
+theCaption=paste("Source:CIA\n","Worst case:",worstCase)  
+box=base + geom_boxplot(aes(x=life_exp))
+box + labs(title='People live more than 70 years around the world',
+           subtitle = "147 countries, 2023",
+           caption = theCaption,
+           x= 'life expectancy')
+```
+
+## bivariate
+
+- what about a correlation
+```{r, message=FALSE}
+corrtable::correlation_matrix(df = cia[,-c(1,5,6)],
+                              use = 'lower',
+                              replace_diagonal = T)
+
+```
+
+- visualizing the correlation
+
+```{r}
+# install.packages("ggcorrplot")
+library(ggcorrplot)
+
+# 1. Compute the correlation matrix
+corr_matrix <- cor(cia[, c('life_exp',"infant", "maternal")])
+
+# 2. Plot
+ggcorrplot(corr_matrix)
+```
+
+# Time to test your Hypothesis!
+
+```{r}
+# the H
+hypo=formula(life_exp ~ infant + maternal + gini)
+```
+
+The test
+
+```{r}
+model <- lm(hypo, data = cia)
+
+#then
+summary(model)
+```
+
+
+```{r}
+summary(lm(life_exp ~ maternal,data=cia))
+```
+
+
+```{r}
+summary(lm(life_exp ~ maternal + infant,data=cia))
+```
+
+```{r}
+summary(lm(life_exp ~ maternal + gini,data=cia))
+```
+
+```{r}
+library(sjPlot)
+plot_models(model)
+```
+# playing with simple commands and find some insight?
+
+```{r}
+head(cia)
+```
+## Life expectancy by region?
+
+```{r}
+base + geom_boxplot(aes(x=life_exp,y=region))
+```
+```{r}
+base + geom_boxplot(aes(x=life_exp,y=reorder(region,life_exp,median)))
+
+```
+## A box plot for each var?
+
+```{r}
+base +  geom_boxplot(aes(x=life_exp)) +  geom_boxplot(aes(x=infant)) +  geom_boxplot(aes(x=maternal))
+```
+That was a bad idea.
+
+```{r}
+cia[,c(1,2,3,4)]
+```
+```{r}
+head(cia[,c(1,2,3,4)])
+```
+
+```{r}
+ciaLong=tidyr::pivot_longer(data=cia[,c(1,2,3,4)],
+                                cols=!name, 
+                                names_to = "vars",
+                                values_to = "index") 
+ciaLong
+```
+```{r}
+base = ggplot(data=ciaLong)
+base + geom_boxplot(aes(x=vars,y=index))
+```
+maybe better:
+```{r}
+base2 = ggplot(data=ciaLong)
+base2 + geom_boxplot(aes(x=vars,y=ave(index, vars, FUN = scale)))
+```
+Another option?
+
+```{r}
+
+base2 + geom_boxplot(aes(x = vars, y = index)) +
+  scale_y_log10() 
+```
+
+## Mortality worst cases?
+
+```{r}
+head(cia[,c('infant','gini')])
+```
+```{r}
+# Find the value that marks the top 25%
+infant_bad <- quantile(cia$infant, 0.75, na.rm = TRUE)
+gini_bad   <- quantile(cia$gini, 0.75, na.rm = TRUE)
+
+# Create a "High Risk" dummy variable (1 if in the worst quartile)
+cia$infant_worst <- ifelse(cia$infant >= infant_bad, 1, 0)
+cia$gini_worst   <- ifelse(cia$gini >= gini_bad, 1, 0)
+```
+
+```{r}
+subset(cia, infant_worst == 1 & gini_worst == 1)['region']|>table()
+```
+
+```{r}
+infant_good <- quantile(cia$infant, 0.25, na.rm = TRUE)
+gini_good   <- quantile(cia$gini, 0.25, na.rm = TRUE)
+
+cia$infant_great <- ifelse(cia$infant <= infant_good, 1, 0)
+cia$gini_great   <- ifelse(cia$gini <= gini_good, 1, 0)
+```
+
+```{r}
+subset(cia, infant_great == 1 & gini_great == 1)['region']|>table()
+```
+```{r}
+library(ggplot2)
+
+# use previous result
+plot_data <- subset(cia, infant_great == 1 & gini_great == 1)
+
+# plot
+base3=ggplot(data=plot_data)
+base3 +  geom_bar(aes(x = reorder(region, region,
+                                  function(x) -length(x)))) +
+  labs(title = "Regions with lowest Infant Mortality & Gini",
+       x = "Region",
+       y = "Count") 
+```
+
+
+
