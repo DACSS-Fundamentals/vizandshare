@@ -5,7 +5,7 @@ output:
     df_print: paged
 ---
 
-# the data cleaned and in the right format?
+# The data cleaned and in the right format?
 
 ```{r}
 rm(list = ls())
@@ -37,10 +37,11 @@ str(cia)
 ## Any Control Variable?
 
 * GINI index
+* Region
 
 # Exploration
 
-## Univariate
+## Univariate : Your variable of interest
 
 ### key stats
 
@@ -52,12 +53,11 @@ The above may be supplemented by:
 ```{r}
 library(moments)
 skewness(cia$life_exp)
-
 ```
 
 The tail is to the left (would be to the right if positive)
 
-### visual
+### Visual
 
 How to highlight the stats above?
 
@@ -78,21 +78,34 @@ base + geom_boxplot(aes(x=life_exp))
 
 ```
 ```{r}
+# this is another alternative
 base + geom_histogram(aes(x=life_exp),bins = 10)
 ```
 
-Let's chose the boxplot and add some decorations:
+Let's choose the boxplot and add some **textual** decorations:
+
+
 ```{r}
+# detecting the worst case
 worstCase=cia[which.min(cia$life_exp),'name']
+# preparing a message
 theCaption=paste("Source:CIA\n","Worst case:",worstCase)  
+
+# text for titles
+theTitle='People live more than 70 years around the world'
+theSubtitle="147 countries, 2023"
+
+# time te REPLOT
 box=base + geom_boxplot(aes(x=life_exp))
-box + labs(title='People live more than 70 years around the world',
-           subtitle = "147 countries, 2023",
+box + labs(title=theTitle,
+           subtitle = theSubtitle,
            caption = theCaption,
            x= 'life expectancy')
 ```
 
-## bivariate
+## Bivariate
+
+### Key stats
 
 - what about a correlation
 ```{r, message=FALSE}
@@ -102,11 +115,12 @@ corrtable::correlation_matrix(df = cia[,-c(1,5,6)],
 
 ```
 
-- visualizing the correlation
+### Visuals
+
+- Visualizing the correlation
 
 ```{r}
-# install.packages("ggcorrplot")
-library(ggcorrplot)
+library(ggcorrplot) # may need installation
 
 # 1. Compute the correlation matrix
 corr_matrix <- cor(cia[, c('life_exp',"infant", "maternal")])
@@ -116,6 +130,8 @@ ggcorrplot(corr_matrix)
 ```
 
 # Time to test your Hypothesis!
+
+## Key stat
 
 ```{r}
 # the H
@@ -131,51 +147,58 @@ model <- lm(hypo, data = cia)
 summary(model)
 ```
 
+** Above, you just fond some important difference between correlation and regression.**
 
-```{r}
-summary(lm(life_exp ~ maternal,data=cia))
-```
-
-
-```{r}
-summary(lm(life_exp ~ maternal + infant,data=cia))
-```
-
-```{r}
-summary(lm(life_exp ~ maternal + gini,data=cia))
-```
+## Visual
 
 ```{r}
 library(sjPlot)
 plot_models(model)
 ```
+
+
 # playing with simple commands and find some insight?
+
+If this is the data:
 
 ```{r}
 head(cia)
 ```
 ## Life expectancy by region?
 
+
 ```{r}
+# version 1
 base + geom_boxplot(aes(x=life_exp,y=region))
 ```
 ```{r}
+# version 2
 base + geom_boxplot(aes(x=life_exp,y=reorder(region,life_exp,median)))
 
 ```
+
+Which of the above gave you something else to state?
+
+
 ## A box plot for each var?
 
-```{r}
-base +  geom_boxplot(aes(x=life_exp)) +  geom_boxplot(aes(x=infant)) +  geom_boxplot(aes(x=maternal))
-```
-That was a bad idea.
+
+Remember this is not right:
 
 ```{r}
-cia[,c(1,2,3,4)]
+base+geom_boxplot(aes(x=infant,y=infant)) +
+     geom_boxplot(aes(x=maternal,y=maternal)) + labs(y='')
+
 ```
+
+This is a wide shape:
+
+
 ```{r}
 head(cia[,c(1,2,3,4)])
 ```
+
+We need a long shape for **ggplot2**:
 
 ```{r}
 ciaLong=tidyr::pivot_longer(data=cia[,c(1,2,3,4)],
@@ -184,67 +207,106 @@ ciaLong=tidyr::pivot_longer(data=cia[,c(1,2,3,4)],
                                 values_to = "index") 
 ciaLong
 ```
+
 ```{r}
+# then
 base = ggplot(data=ciaLong)
 base + geom_boxplot(aes(x=vars,y=index))
 ```
-maybe better:
+
+Good data, but visually still weak. What happened? Each variable has different range (min - max). Then:
+
+**Faceting**
+
 ```{r}
 base2 = ggplot(data=ciaLong)
-base2 + geom_boxplot(aes(x=vars,y=ave(index, vars, FUN = scale)))
+base2 + geom_boxplot(aes(y=index)) + 
+  facet_wrap(~ vars, scales = "free")
 ```
-Another option?
+
+Facetting is very useful:
 
 ```{r}
-
-base2 + geom_boxplot(aes(x = vars, y = index)) +
-  scale_y_log10() 
+base2 = ggplot(data=ciaLong)
+base2 + geom_histogram(aes(x=index),bins=10) + 
+  facet_wrap(vars~., scales = "free", ncol = 1)
 ```
 
-## Mortality worst cases?
+## Mortality worst group?
 
 ```{r}
-head(cia[,c('infant','gini')])
+head(cia[,c('infant','maternal')])
 ```
 ```{r}
-# Find the value that marks the top 25%
-infant_bad <- quantile(cia$infant, 0.75, na.rm = TRUE)
-gini_bad   <- quantile(cia$gini, 0.75, na.rm = TRUE)
+# Find the value that marks the top 25% (worst)
+inf_bad <- quantile(cia$infant, 0.75, na.rm = TRUE)
+mat_bad   <- quantile(cia$maternal, 0.75, na.rm = TRUE)
 
-# Create a "High Risk" dummy variable (1 if in the worst quartile)
-cia$infant_worst <- ifelse(cia$infant >= infant_bad, 1, 0)
-cia$gini_worst   <- ifelse(cia$gini >= gini_bad, 1, 0)
+# '1' if in the worst quartile:
+cia$inf_worst <- ifelse(cia$infant >= inf_bad, 1, 0)
+cia$mat_worst   <- ifelse(cia$maternal >= mat_bad, 1, 0)
+
+# flag worst of worst
+cia$worst_infmat=cia$inf_worst + cia$mat_worst
+
+cia$worst_infmat=ifelse(cia$worst_infmat==2,T,F)
 ```
+
+Report:
+```{r}
+aggregate(worst_infmat ~ region, data = cia, FUN = sum, na.rm = TRUE)
+```
+
+
+## Mortality best group?
 
 ```{r}
-subset(cia, infant_worst == 1 & gini_worst == 1)['region']|>table()
+inf_good <- quantile(cia$infant, 0.25, na.rm = TRUE)
+mat_good   <- quantile(cia$maternal, 0.25, na.rm = TRUE)
+
+# NOW 'less than'
+cia$inf_best <- ifelse(cia$infant <= inf_good, 1, 0)
+cia$mat_best   <- ifelse(cia$maternal <= mat_good, 1, 0)
+
+# flag worst of worst
+cia$best_infmat=cia$inf_best + cia$mat_best
+
+cia$best_infmat=ifelse(cia$best_infmat==2,T,F)
 ```
+
+Report:
 
 ```{r}
-infant_good <- quantile(cia$infant, 0.25, na.rm = TRUE)
-gini_good   <- quantile(cia$gini, 0.25, na.rm = TRUE)
-
-cia$infant_great <- ifelse(cia$infant <= infant_good, 1, 0)
-cia$gini_great   <- ifelse(cia$gini <= gini_good, 1, 0)
+aggregate(best_infmat ~ region, data = cia, FUN = sum, na.rm = TRUE)
 ```
+
+Plotting!
 
 ```{r}
-subset(cia, infant_great == 1 & gini_great == 1)['region']|>table()
+# saving as object
+counts_worst <- aggregate(worst_infmat ~ region, data = cia, FUN = sum)
+# filtering
+counts_worst=counts_worst[counts_worst$worst_infmat>0,]
+
+# plotting
+base_worst=ggplot(counts_worst)
+
+base_worst + geom_col(aes(x = reorder(region, -worst_infmat), 
+                       y = worst_infmat)) 
 ```
+
+and....
+
 ```{r}
-library(ggplot2)
+# saving as object
+counts_best <- aggregate(best_infmat ~ region, data = cia, FUN = sum)
+# filtering
+counts_best=counts_best[counts_best$best_infmat>0,]
 
-# use previous result
-plot_data <- subset(cia, infant_great == 1 & gini_great == 1)
+# plotting
+base_best=ggplot(data=counts_best)
 
-# plot
-base3=ggplot(data=plot_data)
-base3 +  geom_bar(aes(x = reorder(region, region,
-                                  function(x) -length(x)))) +
-  labs(title = "Regions with lowest Infant Mortality & Gini",
-       x = "Region",
-       y = "Count") 
+base_best + geom_col(aes(x = reorder(region, -best_infmat), 
+                       y = best_infmat)) 
 ```
-
-
 
