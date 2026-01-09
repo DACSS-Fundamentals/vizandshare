@@ -7,6 +7,8 @@ output:
 
 # The data cleaned and in the right format?
 
+As soon as you opena data file, you must check the data types with **str()**:
+
 ```{r, eval=TRUE, echo=TRUE, message=FALSE}
 rm(list = ls())
 
@@ -25,6 +27,8 @@ str(cia)
 
 # You may have several variables...but
 
+You just do not open a data file for a random reason. You have a purpose. 
+
 ## Which is your variable of interest?
 
 * Life Expectancy
@@ -40,6 +44,8 @@ str(cia)
 * Region
 
 # Exploration
+
+Do not plan any advanced work if you have not explored the set of columns you need.
 
 ## Univariate : Your variable of interest
 
@@ -147,7 +153,7 @@ model <- lm(hypo, data = cia)
 summary(model)
 ```
 
-** Above, you just fond some important difference between correlation and regression.**
+** Above, you just found some important difference between correlation and regression.**
 
 ## Visual
 
